@@ -1,5 +1,5 @@
 import customtkinter as ctk
-from buttons import Button, ImageButton
+from buttons import Button, ImageButton, NumButton
 import darkdetect
 from settings import *
 from ctypes import windll, byref, sizeof, c_int
@@ -65,6 +65,20 @@ class Calculator(ctk.CTk):
                row=OPERATORS["invert"]["row"],
                )
 
+        for num, data in NUM_POSITIONS.items():
+            NumButton(
+                parent=self,
+                text=num,
+                func=self.num_press,
+                col=data["col"],
+                row=data["row"],
+                font=main_font,
+                span=data["span"]
+            )
+
+
+    def num_press(self,value):
+        print(value)
 
     def clear(self):
         print("clear")
