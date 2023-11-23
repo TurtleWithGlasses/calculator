@@ -1,4 +1,5 @@
 import customtkinter as ctk
+from buttons import Button
 import darkdetect
 from settings import *
 from ctypes import windll, byref, sizeof, c_int
@@ -35,6 +36,40 @@ class Calculator(ctk.CTk):
         OutputLabel(self,0,"se",main_font,self.formula_string)
         OutputLabel(self,1,"e",result_font,self.result_string)
 
+        # clear button
+        Button(parent=self,
+               text= OPERATORS["clear"]["text"],
+               func=self.clear,
+               col=OPERATORS["clear"]["col"],
+               row=OPERATORS["clear"]["row"],
+               font=main_font)
+
+        # percentage button
+        Button(parent=self,
+               text= OPERATORS["percent"]["text"],
+               func=self.percent,
+               col=OPERATORS["percent"]["col"],
+               row=OPERATORS["percent"]["row"],
+               font=main_font)
+
+        # invert buutton
+        Button(parent=self,
+               text= OPERATORS["invert"]["text"],
+               func=self.invert,
+               col=OPERATORS["invert"]["col"],
+               row=OPERATORS["invert"]["row"],
+               font=main_font)
+
+
+    def clear(self):
+        print("clear")
+
+    def percent(self):
+        print("percent")
+    
+    def invert(self):
+        print("invert")
+
     def title_bar_color(self,is_dark):
         try:
             HWND = windll.user32.GetParent(self.winfo_id())
@@ -51,4 +86,4 @@ class OutputLabel(ctk.CTkLabel):
 
 
 if __name__ == "__main__":
-    Calculator(darkdetect.isLight())
+    Calculator(True)
