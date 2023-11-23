@@ -1,8 +1,9 @@
 import customtkinter as ctk
-from buttons import Button
+from buttons import Button, ImageButton
 import darkdetect
 from settings import *
 from ctypes import windll, byref, sizeof, c_int
+from PIL import Image, ImageTk
 
 class Calculator(ctk.CTk):
     def __init__(self,is_dark):
@@ -53,12 +54,16 @@ class Calculator(ctk.CTk):
                font=main_font)
 
         # invert buutton
-        Button(parent=self,
-               text= OPERATORS["invert"]["text"],
+        invert_image = ctk.CTkImage(
+            light_image=Image.open("invert_dark.png"),
+            dark_image=Image.open("invert_light.png")
+        )
+        ImageButton(parent=self,
+               image=invert_image,
                func=self.invert,
                col=OPERATORS["invert"]["col"],
                row=OPERATORS["invert"]["row"],
-               font=main_font)
+               )
 
 
     def clear(self):
