@@ -1,5 +1,5 @@
 import customtkinter as ctk
-from buttons import Button, ImageButton, NumButton
+from buttons import Button, ImageButton, NumButton, MathButton, MathImageButton
 import darkdetect
 from settings import *
 from ctypes import windll, byref, sizeof, c_int
@@ -76,8 +76,33 @@ class Calculator(ctk.CTk):
                 span=data["span"]
             )
 
+        for operator, data in MATH_POSITIONS.items():
+            if data["image path"]:
+                divide_image = ctk.CTkImage(
+                    light_image=Image.open(data["image path"]["dark"]),
+                    dark_image=Image.open(data["image path"]["light"])
+                )
+                MathImageButton(self,
+                                operator=operator,
+                                func=self.math_press,
+                                col=data["col"],
+                                row=data["row"],
+                                image=divide_image,
+                )
+            else:
+                MathButton(self,
+                        text=data["character"],
+                        operator=operator,
+                        func=self.math_press,
+                        col=data["col"],
+                        row=data["row"],
+                        font=main_font)
+
 
     def num_press(self,value):
+        print(value)
+
+    def math_press(self,value):
         print(value)
 
     def clear(self):
